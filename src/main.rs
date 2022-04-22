@@ -4,7 +4,7 @@ use tide::prelude::*;
 #[derive(Debug, Deserialize)]
 struct GeoJSON {
     geojson_type: String,
-    coordinates: String,
+    coordinates: Vec<i32>,
 }
 
 #[async_std::main]
@@ -24,5 +24,5 @@ async fn hello_name(req: Request<()>) ->  tide::Result<String> {
 
 async fn add_geojson(mut req: Request<()>) -> tide::Result {
     let GeoJSON { geojson_type, coordinates } = req.body_json().await?;
-    Ok(format!("Type: {}, Coordiantes: {}", geojson_type, coordinates).into())
+    Ok(format!("Type: {}, Coordiantes: {:?}", geojson_type, coordinates).into())
 }
